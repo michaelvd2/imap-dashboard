@@ -37,7 +37,7 @@ foreach ($name in @('verify_backend.ps1', 'verify_package.py')) {
 [IO.Directory]::CreateDirectory((Join-Path $stage '.agents\plugins')) | Out-Null
 Copy-Item -LiteralPath (Join-Path $root 'handoff\marketplace.json') -Destination (Join-Path $stage '.agents\plugins\marketplace.json')
 Copy-Item -LiteralPath (Join-Path $root 'skills\imap-dashboard\SKILL.md') -Destination (Join-Path $stage 'SKILL.md')
-[ordered]@{ product='imap-dashboard-handoff'; version='0.1.1'; uses_existing_connection='imap-plugin'; contains_runtime=$false } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $stage 'release.json') -Encoding UTF8
+[ordered]@{ product='imap-dashboard-handoff'; version='0.1.2'; uses_existing_connection='imap-plugin'; contains_runtime=$false } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $stage 'release.json') -Encoding UTF8
 
 Get-ChildItem -LiteralPath $stage -Directory -Recurse -Force | Where-Object { $_.Name -eq '__pycache__' } | Sort-Object FullName -Descending | ForEach-Object {
     Remove-Item -LiteralPath $_.FullName -Recurse -Force
@@ -66,7 +66,7 @@ Get-ChildItem -LiteralPath $stage -File -Recurse -Force | Where-Object { $_.Name
     $relative = $_.FullName.Substring($stage.Length + 1).Replace('\', '/')
     $entries += [ordered]@{ path=$relative; bytes=[int64]$_.Length; sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToUpperInvariant() }
 }
-[ordered]@{ schema=1; product='imap-dashboard-handoff'; version='0.1.1'; files=$entries } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stage 'package-manifest.json') -Encoding UTF8
+[ordered]@{ schema=1; product='imap-dashboard-handoff'; version='0.1.2'; files=$entries } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stage 'package-manifest.json') -Encoding UTF8
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [IO.Compression.ZipFile]::CreateFromDirectory($stage, $zip, [IO.Compression.CompressionLevel]::Optimal, $false)
 $hash = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToUpperInvariant()

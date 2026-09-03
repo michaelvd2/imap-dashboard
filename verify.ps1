@@ -19,7 +19,7 @@ function Resolve-ContainedFile([string]$Base, [string]$Relative) {
 }
 
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-if ($manifest.schema -ne 1 -or $manifest.product -ne 'imap-dashboard-handoff' -or [Version][string]$manifest.version -ne [Version]'0.1.1') {
+if ($manifest.schema -ne 1 -or $manifest.product -ne 'imap-dashboard-handoff' -or [Version][string]$manifest.version -ne [Version]'0.1.2') {
     throw 'The Dashboard package identity or version is invalid.'
 }
 $expected = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)

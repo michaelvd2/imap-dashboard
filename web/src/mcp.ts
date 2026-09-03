@@ -13,7 +13,7 @@ if (isStandalone) document.documentElement.dataset.imapDashboardPresentation = "
 const app = isStandalone
   ? undefined
   : new McpApp(
-      { name: "imap-dashboard-ui", version: "0.1.1" },
+      { name: "imap-dashboard-ui", version: "0.1.2" },
       { availableDisplayModes: ["fullscreen"] },
       { autoResize: true },
     );

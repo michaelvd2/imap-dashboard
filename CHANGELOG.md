@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 - Secure build tooling
+
+- Updated the pinned Python build tool to a version that fixes the macOS Unicode-normalization archive issue.
+
 ## 0.1.1 - Public release hardening
 
 - Removes user-specific attribution and expands current-tree and Git-history privacy checks.

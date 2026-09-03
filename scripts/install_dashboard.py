@@ -197,7 +197,7 @@ def install(source: Path, program_root: Path) -> dict[str, Any]:
     receipt = {
         "status": "installed",
         "plugin": "imap-dashboard@imap-plugin-handoff",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "reused_existing_connection": True,
         "backend_plugin": "imap-plugin",
         "dashboard": str(destination),

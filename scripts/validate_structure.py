@@ -39,7 +39,7 @@ def validate(root: Path) -> None:
     package = json.loads((root / "web" / "package.json").read_text(encoding="utf-8"))
     init_text = (root / "src" / "imap_dashboard" / "__init__.py").read_text(encoding="utf-8")
     init_version = re.search(r'(?m)^__version__\s*=\s*"([0-9]+\.[0-9]+\.[0-9]+)"$', init_text)
-    if not init_version or {plugin.get("version"), project.get("version"), package.get("version"), init_version.group(1)} != {"0.1.1"}:
+    if not init_version or {plugin.get("version"), project.get("version"), package.get("version"), init_version.group(1)} != {"0.1.2"}:
         raise RuntimeError("dashboard version declarations do not agree")
     mcp = json.loads((root / ".mcp.json").read_text(encoding="utf-8"))
     server = mcp.get("mcpServers", {}).get("imap-dashboard", {})
