@@ -11,6 +11,7 @@ import pytest
 from imap_dashboard.server import OPERATOR_TOOLS, READ_TOOLS, build_server
 from scripts import install_dashboard
 from scripts.install_dashboard import _updated_marketplace
+from scripts.git_history_privacy_scan import _scan_bytes as scan_history_bytes, identity_is_allowed
 from scripts.privacy_scan import scan as privacy_scan
 from scripts.verify_backend import BackendVerificationError, verify as verify_backend
 
@@ -250,3 +251,14 @@ def test_privacy_scan_does_not_skip_a_package_because_its_parent_is_dist(tmp_pat
     assert privacy_scan(stage) == []
     readme.write_text("Mich" + "ael", encoding="utf-8")
     assert privacy_scan(stage) == ["README.md: private marker"]
+
+
+def test_history_scan_allows_only_known_github_automation_addresses():
+    assert scan_history_bytes(b"Signed-off-by: dependabot[bot] <support@github.com>", "commit") == []
+    assert scan_history_bytes(b"author@" + b"company.example.com", "commit") == [
+        "non-example email domain in commit"
+    ]
+    assert identity_is_allowed("dependabot[bot]", "49699333+dependabot[bot]@users.noreply.github.com")
+    assert identity_is_allowed("GitHub", "noreply@github.com")
+    assert not identity_is_allowed("Example Person", "noreply@github.com")
+    assert not identity_is_allowed("GitHub", "person@" + "company.example.com")

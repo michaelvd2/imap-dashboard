@@ -22,9 +22,16 @@ SECRET_ASSIGNMENT_RE = re.compile(
     r"(?i)(?:password|passwd|secret|api[_-]?key|access[_-]?token|refresh[_-]?token)\s*[:=]\s*['\"][^'\"\r\n]{4,}['\"]"
 )
 PRIVATE_KEY_RE = re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")
+ALLOWED_EMAIL_ADDRESSES = {
+    "49699333+dependabot[bot]@users.noreply.github.com",
+    "noreply@github.com",
+    "support@github.com",
+}
 
 
 def allowed_demo_address(address: str) -> bool:
+    if address.casefold() in ALLOWED_EMAIL_ADDRESSES:
+        return True
     domain = address.rsplit("@", 1)[-1].casefold()
     return domain.endswith(".test") or domain.endswith(".example") or domain.endswith(".invalid")
 

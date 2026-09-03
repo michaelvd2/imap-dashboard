@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: ${{ github.repository_owner }}/imap-plugin
-          ref: 512c56656cc1b0bbb8bc0341c2da8a72774a3a92
+          ref: 4fdb7769a5fbd1430211a6e682b289a743611c8e
           path: _backend
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
